@@ -1,0 +1,17 @@
+@model TWTodos_ASP.NET.Models.Todo;
+
+<h1>@ViewData["Title"]</h1>
+
+<form method="POST">
+  <div class="mb-3">
+    <label class="form-label" asp-for="Title">Título</label>
+    <input class="form-control" asp-for="Title">
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label" asp-for="Deadline">Data de Entrega</label>
+    <input type="date" class="form-control" asp-for="Deadline">
+  </div>
+
+  <button type="submit" class="btn btn-primary">Salvar</button>
+</form>
