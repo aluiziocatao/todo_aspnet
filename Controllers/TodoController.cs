@@ -25,10 +25,14 @@ public class TodoController : Controller {
 
     [HttpPost]
     public IActionResult Create(Todo todo) {
-        todo.CreatedAt = DateTime.Now;
-        _context.Todos.Add(todo);
-        _context.SaveChanges();
-        return RedirectToAction(nameof(Index));
+        if(ModelState.IsValid) {
+            todo.CreatedAt = DateTime.Now;
+            _context.Todos.Add(todo);
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Index));
+        }
+        ViewData["Title"] = "Nova Tarefa";
+        return View("Form", todo);
     }
     
     public IActionResult Edit(int id) {
@@ -39,9 +43,13 @@ public class TodoController : Controller {
 
     [HttpPost]
     public IActionResult Edit(Todo todo) {
-        _context.Todos.Update(todo);
-        _context.SaveChanges();
-        return RedirectToAction(nameof(Index));
+        if(ModelState.IsValid) {
+            _context.Todos.Update(todo);
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Index));
+        }
+        ViewData["Title"] = "Editar Tarefa";
+        return View("Form", todo);
     }
 
     public IActionResult Delete(int id) {

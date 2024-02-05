@@ -6,11 +6,13 @@
   <div class="mb-3">
     <label class="form-label" asp-for="Title">Título</label>
     <input class="form-control" asp-for="Title">
+    <span asp-validation-for="Title" class="text-danger"></span>
   </div>
 
   <div class="mb-3">
     <label class="form-label" asp-for="Deadline">Data de Entrega</label>
     <input type="date" class="form-control" asp-for="Deadline">
+    <span asp-validation-for="Deadline" class="text-danger"></span>
   </div>
 
   <button type="submit" class="btn btn-primary">Salvar</button>
