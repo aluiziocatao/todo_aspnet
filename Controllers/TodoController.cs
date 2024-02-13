@@ -37,7 +37,11 @@ public class TodoController : Controller {
     
     public IActionResult Edit(int id) {
         var todo = _context.Todos.Find(id);
+        if(todo is null) {
+            return NotFound();
+        }
         ViewData["Title"] = "Editar Tarefa";
+
         return View("Form", todo);
     }
 
@@ -49,12 +53,17 @@ public class TodoController : Controller {
             return RedirectToAction(nameof(Index));
         }
         ViewData["Title"] = "Editar Tarefa";
+
         return View("Form", todo);
     }
 
     public IActionResult Delete(int id) {
         var todo = _context.Todos.Find(id);
+        if(todo is null) {
+            return NotFound();
+        }
         ViewData["Title"] = "Excluir Tarefa";
+
         return View(todo);
     }
 
@@ -62,6 +71,17 @@ public class TodoController : Controller {
     public IActionResult Delete(Todo todo) {
         _context.Todos.Remove(todo);
         _context.SaveChanges();
+        return RedirectToAction(nameof(Index));
+    }
+
+    public IActionResult Finish(int id) {
+        var todo = _context.Todos.Find(id);
+        if(todo is null) {
+            return NotFound();
+        }
+        todo.Finish();
+        _context.SaveChanges();
+
         return RedirectToAction(nameof(Index));
     }
 }
